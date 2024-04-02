@@ -70,7 +70,7 @@ def booking():
         print(f"Here is current hotel status {hotel_rooms}, please try again")
     
 
-booking()
+# booking()
 
 
 # Task 2: E-commerce Product Search Feature
@@ -79,15 +79,53 @@ booking()
 # Problem Statement:
 # Create a system that:
 
-# Holds a dictionary of products where each product has attributes like name, category, and price.
-# Implement a search function that allows searching for products by name, returning a list of matching products (case-insensitive search).
-# Handle cases where no matches are found.
+# 1)Holds a dictionary of products where each product has attributes like name, category, and price.
+ 
+# 2) Implement a search function that allows searching for products by name, returning a list of matching products (case-insensitive search).
+
+# 3) Handle cases where no matches are found.
 # Example product dictionary:
 
-# products = {
-#     "1": {"name": "Laptop", "category": "Electronics", "price": 800},
-#     "2": {"name": "Shirt", "category": "Clothing", "price": 20}
-# }
+
+
+def productOrganizer():
+    products = {}
+    
+    while True:
+        itemName = input("item name?: (enter 'done' when finished) ").lower().strip()
+        if itemName == 'done':
+            print(products)
+            break
+        itemCategory = input("item Category?: ").lower().strip()
+        try:
+            itemPrice = int(input("how much is item?: "))
+            itemPrice = round(itemPrice)
+            if itemPrice < 0:
+                raise ValueError("Price can't be lower than zero")                
+        except ValueError:
+            print("Item price must be integer")
+            continue
+        itemNumber = len(products)
+        products[itemNumber] = {'name': itemName, 'category': itemCategory, 'price': itemPrice}
+
+    return products
+
+# productOrganizer()
+
+products = productOrganizer()
+
+def productSearch(productList):
+
+    searchByName = input("What is the name of the item you're searching for?: ").lower().strip()
+
+    for itemList in products.values():
+        for key in itemList.keys():
+            if searchByName in itemList['name']:
+                result = itemList['name']
+
+    print(result)
+productSearch(products)
+
 # 3. Python Programming Challenges for Customer Service Data Handling
 # Objective:
 # This assignment is designed to test and enhance your Python programming skills, focusing on real-world applications in customer service data management. You will practice correcting code, organizing customer data, and implementing a feedback system using Python dictionaries.
