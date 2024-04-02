@@ -112,7 +112,7 @@ def productOrganizer():
 
 # productOrganizer()
 
-products = productOrganizer()
+# products = productOrganizer()
 
 def productSearch(productList):
 
@@ -124,7 +124,7 @@ def productSearch(productList):
                 result = itemList['name']
 
     print(result)
-productSearch(products)
+# productSearch(products)
 
 # 3. Python Programming Challenges for Customer Service Data Handling
 # Objective:
@@ -136,18 +136,74 @@ productSearch(products)
 # Problem Statement:
 # Develop a program that:
 
-# Tracks customer service tickets, each with a unique ID, customer name, issue description, and status (open/closed).
-# Implement functions to:
-# Open a new service ticket.
-# Update the status of an existing ticket.
-# Display all tickets or filter by status.
-# Initialize with some sample tickets and include functionality for additional ticket entry.
+# 1) Tracks customer service tickets, each with a unique ID, customer name, issue description, and status (open/closed).
+# 2) Implement functions to:
+#    A. Open a new service ticket.
+#    B. Update the status of an existing ticket.
+#    C. Display all tickets or filter by status.
+# 3) Initialize with some sample tickets and include functionality for additional ticket entry.
 # Example ticket structure:
 
 # service_tickets = {
 #     "Ticket001": {"Customer": "Alice", "Issue": "Login problem", "Status": "open"},
 #     "Ticket002": {"Customer": "Bob", "Issue": "Payment issue", "Status": "closed"}
 # }
+
+def ticketTracker():
+    status = "open"
+    adminPassword = "TTadmin"
+    serviceTickets = {}
+    print("Welcome to ticket Tracker!")
+
+    while True:
+        admin_or_customer = input("Are you an admin or customer?: ").lower().strip()
+        if admin_or_customer == 'admin':
+            password = input("What is admin password?:" )
+            if adminPassword == password:
+                while True:
+                    try:
+                        menu = input("What would you like to do?:\n1) Open new service Ticket?\n2) Update ticket status?\n3) Display all tickets or filter by status?\n4) Quit\n ")
+                        menu = int(menu)
+
+                        if menu == 4:
+                            print("thank you for choosing Ticket Tracker")
+                            break
+                        elif menu not in range(1,5):
+                            print("Invalid Response: must be a number between 1-4")
+                            continue
+
+
+                        if menu == 1:
+                            while True:
+                                cxName = input("What is customer name?: enter('done' when finished) ").lower().strip()
+                                if cxName == 'done':
+                                    break
+
+                                issue = input("very breifely describe problem.. ex) 'Payment Issue': ").lower().strip()
+                                
+                                ticketNumber = "ticket" + str(len(serviceTickets) + 1)
+                                serviceTickets[ticketNumber] ={"Customer": cxName, "issue": issue, "status": status}    
+                                print(serviceTickets)
+
+
+                    except ValueError: 
+                        print("Response must be a number 1-4")
+                        continue
+            else:
+                print("invalid password")
+                continue
+
+        else:
+            pass
+
+
+
+ticketTracker()
+
+
+
+
+
 # 4. Python Essentials for Business Analytics
 # Objective:
 # This assignment aims to strengthen your proficiency in Python by tackling challenges that simulate real-world business analytics scenarios. You'll practice copying dictionaries, utilizing built-in methods, managing nested collections, and implementing try-except blocks for error handling.
