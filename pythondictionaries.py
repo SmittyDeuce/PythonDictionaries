@@ -150,6 +150,7 @@ def productSearch(productList):
 # }
 
 def ticketTracker():
+    user_found = False
     status = "open"
     adminPassword = "TTadmin"
     serviceTickets = {}
@@ -185,7 +186,35 @@ def ticketTracker():
                                 serviceTickets[ticketNumber] ={"Customer": cxName, "issue": issue, "status": status}    
                                 print(serviceTickets)
 
+                        if menu == 2:
+                            while True:
+                                print(serviceTickets)
+                                ticketName = input("enter the name of ticket holder: (enter 'done' when finished) ").lower().strip()
+                                if ticketName == 'done':
+                                    break
 
+                                else:
+                                    for ticketNumber, ticketDetails in serviceTickets.items():
+                                        if ticketName == ticketDetails['customer'].lower():
+                                            user_found = True
+                                            print("user found: ", ticketDetails)
+                                            changeStatus = input("Do you want to open or close status?: (enter 'done' when finished) ").lower().strip()
+                                            
+                                            if changeStatus == 'done':
+                                                print(ticketDetails)
+                                                break
+                                            elif changeStatus == 'open':
+                                                serviceTickets[ticketNumber]['status'] = 'open'
+                                                print(serviceTickets[ticketNumber])
+
+                                            elif changeStatus == 'close':
+                                                serviceTickets[ticketNumber]['status'] = 'closed'
+                                                print(serviceTickets[ticketNumber])
+                                            else:
+                                                print("invalid response")
+                                                continue
+                                        if not user_found:
+                                            print("Customer not found")    
                     except ValueError: 
                         print("Response must be a number 1-4")
                         continue
