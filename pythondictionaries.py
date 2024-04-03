@@ -195,7 +195,7 @@ def ticketTracker():
 
                                 else:
                                     for ticketNumber, ticketDetails in serviceTickets.items():
-                                        if ticketName == ticketDetails['customer'].lower():
+                                        if ticketName == ticketDetails['Customer']:
                                             user_found = True
                                             print("user found: ", ticketDetails)
                                             changeStatus = input("Do you want to open or close status?: (enter 'done' when finished) ").lower().strip()
@@ -214,7 +214,28 @@ def ticketTracker():
                                                 print("invalid response")
                                                 continue
                                         if not user_found:
-                                            print("Customer not found")    
+                                            print("Customer not found")
+
+                        if menu == 3:
+                            while True:
+                                display_or_filter = input("type 'display' to show all tickets\ntype 'filter' to filter by status: (enter 'done' when finished) ").lower().strip()
+                                if display_or_filter == 'done':
+                                    break
+
+                                elif display_or_filter == 'display':
+                                    print(serviceTickets)
+
+                                elif display_or_filter == 'filter':
+                                    closed_or_open = input("type 'open' or 'closed' to filter: (enter 'done' when finished) ").lower().strip()
+                                    if closed_or_open == 'done':
+                                        break
+                                    elif closed_or_open == 'open':
+                                        for ticketNumber, ticketDetails in serviceTickets.items():
+                                            if 'open' in ticketDetails['status']:
+                                                print(ticketDetails)
+
+
+
                     except ValueError: 
                         print("Response must be a number 1-4")
                         continue
