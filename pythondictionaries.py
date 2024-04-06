@@ -157,7 +157,10 @@ def ticketTracker():
     print("Welcome to ticket Tracker!")
 
     while True:
-        admin_or_customer = input("Are you an admin or customer?: ").lower().strip()
+        admin_or_customer = input("Are you an admin or customer?: (enter 'quit' when finished) ").lower().strip()
+        if admin_or_customer == 'quit':
+            print("Goodbye")
+            break
         if admin_or_customer == 'admin':
             password = input("What is admin password?:" )
             if adminPassword == password:
@@ -195,7 +198,7 @@ def ticketTracker():
 
                                 else:
                                     for ticketNumber, ticketDetails in serviceTickets.items():
-                                        if ticketName == ticketDetails['Customer']:
+                                        if ticketName == ticketDetails['Customer'].lower():
                                             user_found = True
                                             print("user found: ", ticketDetails)
                                             changeStatus = input("Do you want to open or close status?: (enter 'done' when finished) ").lower().strip()
@@ -213,6 +216,7 @@ def ticketTracker():
                                             else:
                                                 print("invalid response")
                                                 continue
+                                            break
                                         if not user_found:
                                             print("Customer not found")
 
@@ -223,17 +227,20 @@ def ticketTracker():
                                     break
 
                                 elif display_or_filter == 'display':
-                                    print(serviceTickets)
+                                    print(f"All Tickets: \n{serviceTickets}")
 
                                 elif display_or_filter == 'filter':
                                     closed_or_open = input("type 'open' or 'closed' to filter: (enter 'done' when finished) ").lower().strip()
                                     if closed_or_open == 'done':
                                         break
-                                    elif closed_or_open == 'open':
-                                        for ticketNumber, ticketDetails in serviceTickets.items():
-                                            if 'open' in ticketDetails['status']:
-                                                print(ticketDetails)
 
+                                    elif closed_or_open in ['open', 'closed']:
+                                        print(f"Filtered Tickets (Status: {closed_or_open}):")
+                                        for ticketDetails in serviceTickets.values():
+                                                if ticketDetails["status"] == closed_or_open:
+                                                    print(ticketDetails)
+                                        else:
+                                            print("Please enter 'open', 'closed', or 'done' ")
 
 
                     except ValueError: 
