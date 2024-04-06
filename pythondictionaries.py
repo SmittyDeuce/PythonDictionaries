@@ -112,19 +112,22 @@ def productOrganizer():
 
 # productOrganizer()
 
-# products = productOrganizer()
+products = productOrganizer()
 
 def productSearch(productList):
 
     searchByName = input("What is the name of the item you're searching for?: ").lower().strip()
+    found = False
+    for itemList in productList.values():
+        if searchByName in itemList['name']:
+            result = itemList['name']
+            print(result)
+            found = True
+    if not found:
+        print("Item not")
 
-    for itemList in products.values():
-        for key in itemList.keys():
-            if searchByName in itemList['name']:
-                result = itemList['name']
-
-    print(result)
-# productSearch(products)
+    # print(result)
+productSearch(products)
 
 # 3. Python Programming Challenges for Customer Service Data Handling
 # Objective:
@@ -161,12 +164,12 @@ def ticketTracker():
         if admin_or_customer == 'quit':
             print("Goodbye")
             break
-        if admin_or_customer == 'admin':
+        elif admin_or_customer == 'admin':
             password = input("What is admin password?:" )
             if adminPassword == password:
                 while True:
                     try:
-                        menu = input("What would you like to do?:\n1) Open new service Ticket?\n2) Update ticket status?\n3) Display all tickets or filter by status?\n4) Quit\n ")
+                        menu = input("What would you like to do?:\n1) Open new service Ticket?\n2) Update ticket status?\n3) Display all tickets or filter by status?\n4) Quit\n")
                         menu = int(menu)
 
                         if menu == 4:
@@ -250,12 +253,52 @@ def ticketTracker():
                 print("invalid password")
                 continue
 
+        elif admin_or_customer == 'customer':
+            print("Welcome To Ticket Tracker")
+            while True:
+                try:
+                    menu = input("What would you like to do?:\n1) Open new service Ticket?\n2) Display status?\n3) Quit\n")
+                    menu = int(menu)
+                    if menu == 3:
+                        print("Thank you for being a valued customer")
+                        break
+                    elif menu not in range(1,3):
+                        print("response must be 1-3")
+                        continue
+                    
+                    elif menu == 1:
+                        cxName = input("What your name?: ").lower().strip()
+                        issue = input("very breifely describe problem.. ex) 'Payment Issue': ").lower().strip()
+                        ticketNumber = "ticket" + str(len(serviceTickets) + 1)
+                        
+                        serviceTickets[ticketNumber] ={"Customer": cxName, "issue": issue, "status": status}    
+                        print(f"{cxName}, your ticket has been created\nTicket: {serviceTickets}")
+
+                    elif menu == 2:
+                        while True:
+                            if len(serviceTickets) == 0:
+                                print("Currently there are no tickets, please create one if you need help\nGoodbye.")
+                                break
+                            else:
+                                ticketName = input("enter the name of ticket holder: ").lower().strip()
+                                for ticketNumber, ticketDetails in serviceTickets.items():
+                                    if ticketName == ticketDetails['Customer'].lower():
+                                        user_found = True
+                                        print("user found: ", ticketDetails)
+                                        break
+                                    else:
+                                        print("User Not Found, Try again")
+                                        continue
+                except ValueError:
+                    print("Menu Option must be number 1-3")
+
         else:
-            pass
+            print("please enter one of the answer choices")
+            continue
 
 
 
-ticketTracker()
+# ticketTracker()
 
 
 
@@ -273,9 +316,18 @@ ticketTracker()
 
 # Given Sales Data:
 
-# weekly_sales = {
-#     "Week 1": {"Electronics": 12000, "Clothing": 5000, "Groceries": 7000},
-#     "Week 2": {"Electronics": 15000, "Clothing": 6000, "Groceries": 8000}
-# }
+weekly_sales = {
+    "Week 1": {"Electronics": 12000, "Clothing": 5000, "Groceries": 7000},
+    "Week 2": {"Electronics": 15000, "Clothing": 6000, "Groceries": 8000}
+}
 # Create a deep copy of weekly_sales.
 # Update the sales figure for "Electronics" in "Week 2" to 18000 in the copied data.
+
+import copy
+
+deep_copy_sales = copy.deepcopy(weekly_sales)
+
+deep_copy_sales['Week 2']["Electronics"] = 18000
+
+print(weekly_sales)
+print(deep_copy_sales)
