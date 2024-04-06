@@ -16,16 +16,16 @@ restaurant_menu = {
 
 # Add a new category called "Beverages" with at least two items.
 restaurant_menu["Berverages"] = "Water","Lemonade"
-# print(restaurant_menu)
+print(restaurant_menu)
 
 # Update the price of "Steak" to 17.99.
 
 restaurant_menu["Main Course"]["Steak"] = 15.99
-# print(restaurant_menu)
+print(restaurant_menu)
 
 # Remove "Bruschetta" from "Starters".
 del restaurant_menu["Starters"]["Bruschetta"]
-# print(restaurant_menu)
+print(restaurant_menu)
 
 
 
@@ -70,7 +70,7 @@ def booking():
         print(f"Here is current hotel status {hotel_rooms}, please try again")
     
 
-# booking()
+booking()
 
 
 # Task 2: E-commerce Product Search Feature
@@ -298,7 +298,7 @@ def ticketTracker():
 
 
 
-# ticketTracker()
+ticketTracker()
 
 
 
